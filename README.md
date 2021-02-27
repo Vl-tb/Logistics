@@ -46,7 +46,7 @@ of input data and interaction program with user:
 
     >>> my_items3 = [Item('coat',61.8), Item('shower',5070), Item('rollers',700)]
 
-    >>> my_order3 = Order(Olesya, 'Kharkiv', 17, my_items3)
+    >>> my_order3 = Order('Olesya', 'Kharkiv', 17, my_items3)
 
     Your order number is 485932990.
 
