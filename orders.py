@@ -6,6 +6,7 @@ They are basis of creating orders system.
 from tracking import Location
 import random
 from random import seed
+import blessed
 
 seed(23221221)
 
@@ -30,7 +31,8 @@ class Order:
         self.items = items
         self.vehicle = None
         self.orderId = random.randint(100000000, 999999999)
-        print(str(self))
+        term = blessed.Terminal()
+        print(term.center(str(self)))
 
     def __str__(self) -> str:
         """
@@ -41,7 +43,8 @@ class Order:
 ffice = 53, items = my_items)
         Your order number is 928221043.
         """
-        return f"Your order number is {self.orderId}."
+        term = blessed.Terminal()
+        return f"Your {term.purple}order{term.normal} number is {self.orderId}."
 
     def calculateAmount(self) -> int:
         """

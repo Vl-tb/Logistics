@@ -8,6 +8,7 @@ system).
 import orders
 from orders import Item, Order
 from random import seed
+import blessed
 
 seed(23221221)
 
@@ -40,11 +41,14 @@ office = 53, items = my_items)
         Your order number is 928221043.
         >>> logSystem.placeOrder(my_order)
         """
+        term = blessed.Terminal()
         if len(self.vehicles) > len(self.orders):
             self.orders.append(order)
             return
-        print("There is no available vehicle to deliver an order.")
-        return
+        print(term.clear + term.move_y(term.height//3) + term.center(f"The\
+re is {term.red}no available{term.normal} vehicle to deliver a\
+n {term.purple}order{term.normal}."))
+        return "fail"
 
     def trackOrder(self, orderId: int) -> None:
         """
@@ -62,6 +66,7 @@ office = 53, items = my_items)
         >>> logSystem.trackOrder(156817082)
         Your order #156817082 is sent to Lviv. Total price: 154 UAH.
         """
+        term = blessed.Terminal()
         for i in self.orders:
             if i.orderId == orderId:
                 order = i
@@ -69,12 +74,14 @@ office = 53, items = my_items)
         try:
             total = order.calculateAmount()
         except UnboundLocalError:
-            print("No such order.")
-            return
-        output = f"Your order #{orderId} is sent to {order.location.city}\
+            print(term.clear + term.move_y(term.height//3) +
+            term.center(f"{term.red}No{term.normal} such order."))
+            return 0
+        output = f"Your {term.purple}order{term.normal} {term.yellow}#\
+{orderId}{term.normal} is sent to {order.location.city}\
 . Total price: {total} UAH."
-        print(output)
-        return
+        print(term.clear + term.move_y(term.height//3) + term.center(output))
+        return 1
 
 class Vehicle:
     """
